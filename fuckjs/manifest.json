@@ -1,0 +1,22 @@
+{
+  "name": "fuckjs",
+  "version": "1.0",
+  "manifest_version": 2,
+  "description": "Check for secret in loaded JavaScript files",
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "<all_urls>",
+    "activeTab",
+    "storage",
+    "webNavigation"
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  },
+  "browser_action": {
+    "default_title": "My Extension",
+    "default_popup": "popup.html"
+  }
+}

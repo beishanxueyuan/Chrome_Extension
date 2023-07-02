@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <style>
+      /* 设置宽度和高度 */
+      body {
+        width: 1000px;
+        height: 1000px;
+      }
+    
+      /* 隐藏滚动条 */
+      ::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
+    <title>匹配结果</title>
+  </head>
+  <body>
+    <button id="toggleButton"></button>&nbsp;
+    <button id="clear">清除</button>&nbsp;
+    <h1>secret</h1>
+    <ul id="content-list"></ul>
+    <h1>package</h1>
+    <ul id="content-list2"></ul>
+    <h1>url</h1><button id="copy-btn">复制</button>&nbsp;<input id="in">&nbsp;<button id="filter-btn">过滤</button>
+    <ul id="content-list3"></ul>
+    <script src="popup.js"></script>
+  </body>
+</html>
