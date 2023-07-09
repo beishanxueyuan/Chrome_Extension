@@ -17,3 +17,5 @@ Google搜索
 ```
 site:1.1.1.*
 ```
+
+改编自shodan chrome插件
