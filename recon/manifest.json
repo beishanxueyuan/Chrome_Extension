@@ -1,0 +1,20 @@
+{
+   "browser_action": {
+      "default_icon": {
+         "19": "img/19x19.png",
+         "38": "img/38x38.png"
+      },
+      "default_popup": "html/popup.html",
+      "default_title": "Shodan"
+   },
+   "description": "The Shodan plugin tells you where the website is hosted (country, city), who owns the IP and what other services/ ports are open.",
+   "icons": {
+      "128": "img/128x128.png",
+      "16": "img/16x16.png",
+      "48": "img/48x48.png"
+   },
+   "manifest_version": 2,
+   "name": "Shodan",
+   "permissions": [ "tabs", "contextMenus", "https://api.shodan.io/" ],
+   "version": "1.1.0"
+}
