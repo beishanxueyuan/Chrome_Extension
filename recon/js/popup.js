@@ -39,9 +39,14 @@ chrome.tabs.query({ active: true, lastFocusedWindow: true }, tabs => {
         chrome.tabs.create({ url: "https://fofa.info/result?qbase64=" + btoa("host=\"" + query + "\""), active: false });
     }
     function SearchIP() {
+
       // 调用getIP函数并传递一个回调函数作为第二个参数
         getIP(hostname, function(ipAddress) {
           host_ip=ipAddress;
+          if(/^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(hostname)){
+            host_ip=hostname;
+      }
+          
           chrome.tabs.create({ url: 'https://fofa.info/result?qbase64=' + btoa("ip=\"" + host_ip + "/24\""), active: false });
         let serch_ipIndex = host_ip.lastIndexOf(".");
         let serch_ip = host_ip.slice(0, serch_ipIndex) + ".*";
@@ -51,7 +56,6 @@ chrome.tabs.query({ active: true, lastFocusedWindow: true }, tabs => {
     }
     function SearchAll() {
         query = hostname;
-        chrome.tabs.create({ url: 'https://hunter.qianxin.com/list?search=domain.suffix%3D%22'+query+'%22', active: false });
         chrome.tabs.create({ url: 'https://www.baidu.com/s?wd=' + pageTitle, active: false });
         chrome.tabs.create({ url: 'https://www.baidu.com/s?wd=site:' + query, active: false });
         chrome.tabs.create({ url: 'https://www.bing.com/search?q=site:' + query, active: false });
