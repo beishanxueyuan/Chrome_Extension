@@ -56,8 +56,7 @@ function listener(details) {
         (details.type === "sub_frame"))
     ) {
 
-fetch(details.url, { 
-  method: "HEAD",
+fetch(details.url, {
   proxy: null
 })
 .then((response) => {
@@ -65,7 +64,7 @@ fetch(details.url, {
   if (
     contentType.includes("javascript") | contentType.includes("text/html")
   ) {
-    fetch(details.url)
+    fetch(details.url,{proxy: null})
       .then((response) => response.text())
       .then((text) => {
         const matches = text.match(secret_regex)
