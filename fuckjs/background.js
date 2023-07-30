@@ -1,3 +1,4 @@
+
 // 正则表达式
 const secret_regex =
   /secret\w*\s*("|\'|`)?[:=]\s*["\'][0-9a-zA-Z_=]{20,}["\']|["\']akid|secret\w*\s*=[0-9a-zA-Z_=]{20,}/gi
@@ -54,7 +55,7 @@ function listener(details) {
         (details.type === "main_frame") |
         (details.type === "sub_frame"))
     ) {
-      fetch(details.url, { method: "HEAD" }).then((response) => {
+      fetch(details.url, { method: "HEAD" },proxy: null).then((response) => {
         const contentType = response.headers.get("content-type")
         if (
           contentType.includes("javascript") | contentType.includes("text/html")
@@ -123,6 +124,7 @@ function listener(details) {
             })
         }
       })
+
     }
   })
 }
