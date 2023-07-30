@@ -55,75 +55,80 @@ function listener(details) {
         (details.type === "main_frame") |
         (details.type === "sub_frame"))
     ) {
-      fetch(details.url, { method: "HEAD" },proxy: null).then((response) => {
-        const contentType = response.headers.get("content-type")
-        if (
-          contentType.includes("javascript") | contentType.includes("text/html")
-        ) {
-          fetch(details.url)
-            .then((response) => response.text())
-            .then((text) => {
-              const matches = text.match(secret_regex)
-              if (matches) {
-                chrome.storage.local.get("jsContent", function (result) {
-                  const jsContentArray = result.jsContent || []
-                  if (
-                    jsContentArray.findIndex(
-                      (item) => item.url === details.url
-                    ) == -1
-                  ) {
-                    jsContentArray.push({
-                      current_url: currentHost,
-                      url: details.url,
-                      data: matches,
-                    })
-                    chrome.storage.local.set({ jsContent: jsContentArray })
-                  }
-                })
-              }
-              const matches2 = text.match(package_regex)
-              if (matches2) {
-                chrome.storage.local.get("package_content", function (result) {
-                  const package_contentArray = result.package_content || []
-                  if (
-                    package_contentArray.findIndex(
-                      (item) => item.url === details.url
-                    ) == -1
-                  ) {
-                    package_contentArray.push({
-                      current_url: currentHost,
-                      url: details.url,
-                      data: matches2,
-                    })
-                    chrome.storage.local.set({
-                      package_content: package_contentArray,
-                    })
-                  }
-                })
-              }
-              const matches3 = text.match(url_regex)
-              if (matches3) {
-                chrome.storage.local.get("url_content", function (result) {
-                  const url_contentArray = result.url_content || []
-                  if (
-                    url_contentArray.findIndex(
-                      (item) => item.url === details.url
-                    ) == -1
-                  ) {
-                    url_contentArray.push({
-                      current_url: currentHost,
-                      url: details.url,
-                      data: matches3,
-                    })
-                    chrome.storage.local.set({
-                      url_content: url_contentArray,
-                    })
-                  }
-                })
-              }
-            })
+
+fetch(details.url, { 
+  method: "HEAD",
+  proxy: null
+})
+.then((response) => {
+  const contentType = response.headers.get("content-type")
+  if (
+    contentType.includes("javascript") | contentType.includes("text/html")
+  ) {
+    fetch(details.url)
+      .then((response) => response.text())
+      .then((text) => {
+        const matches = text.match(secret_regex)
+        if (matches) {
+          chrome.storage.local.get("jsContent", function (result) {
+            const jsContentArray = result.jsContent || []
+            if (
+              jsContentArray.findIndex(
+                (item) => item.url === details.url
+              ) == -1
+            ) {
+              jsContentArray.push({
+                current_url: currentHost,
+                url: details.url,
+                data: matches,
+              })
+              chrome.storage.local.set({ jsContent: jsContentArray })
+            }
+          })
+        }
+        const matches2 = text.match(package_regex)
+        if (matches2) {
+          chrome.storage.local.get("package_content", function (result) {
+            const package_contentArray = result.package_content || []
+            if (
+              package_contentArray.findIndex(
+                (item) => item.url === details.url
+              ) == -1
+            ) {
+              package_contentArray.push({
+                current_url: currentHost,
+                url: details.url,
+                data: matches2,
+              })
+              chrome.storage.local.set({
+                package_content: package_contentArray,
+              })
+            }
+          })
+        }
+        const matches3 = text.match(url_regex)
+        if (matches3) {
+          chrome.storage.local.get("url_content", function (result) {
+            const url_contentArray = result.url_content || []
+            if (
+              url_contentArray.findIndex(
+                (item) => item.url === details.url
+              ) == -1
+            ) {
+              url_contentArray.push({
+                current_url: currentHost,
+                url: details.url,
+                data: matches3,
+              })
+              chrome.storage.local.set({
+                url_content: url_contentArray,
+              })
+            }
+          })
         }
       })
+  }
+})
 
     }
   })
