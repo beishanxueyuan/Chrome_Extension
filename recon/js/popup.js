@@ -21,9 +21,12 @@ function getIP(domain, callback) {
 }
 
 
+
+
 chrome.tabs.query({ active: true, lastFocusedWindow: true }, tabs => {
+  var myInput = document.getElementById("myInput")
     var url = new URL(tabs[0].url);
-    let hostname = url.hostname;
+    let hostname = url.hostname
     var pageTitle = tabs[0].title;
     function SearchTitle() {
         chrome.tabs.create({ url: 'https://www.baidu.com/s?wd=' + pageTitle, active: false });
@@ -31,6 +34,9 @@ chrome.tabs.query({ active: true, lastFocusedWindow: true }, tabs => {
     document.getElementById("domain").innerHTML = "<a>"+pageTitle+"</a>";
 
     function SearchDomain() {
+      if (myInput.value != "") {
+        hostname = myInput.value
+      }
         query = hostname;
         chrome.tabs.create({ url: 'https://www.baidu.com/s?wd=site:' + query, active: false });
         chrome.tabs.create({ url: 'https://www.bing.com/search?q=site:' + query, active: false });
@@ -39,6 +45,9 @@ chrome.tabs.query({ active: true, lastFocusedWindow: true }, tabs => {
         chrome.tabs.create({ url: "https://fofa.info/result?qbase64=" + btoa("host=\"" + query + "\""), active: false });
     }
     function SearchIP() {
+      if (myInput.value != "") {
+        hostname = myInput.value
+      }
 
       // 调用getIP函数并传递一个回调函数作为第二个参数
         getIP(hostname, function(ipAddress) {
@@ -55,6 +64,9 @@ chrome.tabs.query({ active: true, lastFocusedWindow: true }, tabs => {
         
     }
     function SearchAll() {
+      if (myInput.value != "") {
+        hostname = myInput.value
+      }
         query = hostname;
         chrome.tabs.create({ url: 'https://www.baidu.com/s?wd=' + pageTitle, active: false });
         chrome.tabs.create({ url: 'https://www.baidu.com/s?wd=site:' + query, active: false });
